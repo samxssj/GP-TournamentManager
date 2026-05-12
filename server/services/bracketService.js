@@ -32,17 +32,21 @@ export function propagateWinner(matches, finishedMatch) {
   const slot = finishedMatch.position % 2 === 0 ? 'athlete1Id' : 'athlete2Id'
   nextMatch[slot] = finishedMatch.winnerId
 
-  // Si el siguiente match tiene un slot vacío y uno lleno, es un bye — el atleta avanza solo
-  const isNewBye =
-    (nextMatch.athlete1Id && !nextMatch.athlete2Id) ||
-    (!nextMatch.athlete1Id && nextMatch.athlete2Id)
+  // Solo auto-avanzar si el slot contrario está vacío Y su feeder ya está resuelto.
+  // Evita el cascade prematuro cuando el feeder contrario todavía no se ha jugado.
+  const otherSlot = slot === 'athlete1Id' ? 'athlete2Id' : 'athlete1Id'
+  if (nextMatch[otherSlot] === null) {
+    const otherFeederPos = otherSlot === 'athlete1Id' ? nextPos * 2 : nextPos * 2 + 1
+    const otherFeeder = matches.find(m => m.round === nextRound - 1 && m.position === otherFeederPos)
+    const feederAlreadyResolved = !otherFeeder || otherFeeder.status === 'finished'
 
-  if (isNewBye) {
-    nextMatch.winnerId = nextMatch.athlete1Id || nextMatch.athlete2Id
-    nextMatch.status = 'finished'
-    nextMatch.result = { ...nextMatch.result, type: 'wo' }
-    nextMatch.finishedAt = new Date().toISOString()
-    propagateWinner(matches, nextMatch)
+    if (feederAlreadyResolved) {
+      nextMatch.winnerId = nextMatch.athlete1Id || nextMatch.athlete2Id
+      nextMatch.status = 'finished'
+      nextMatch.result = { ...nextMatch.result, type: 'wo' }
+      nextMatch.finishedAt = new Date().toISOString()
+      propagateWinner(matches, nextMatch)
+    }
   }
 }
 
