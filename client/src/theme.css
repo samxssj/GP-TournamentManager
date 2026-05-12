@@ -38,6 +38,11 @@
   --side-blue-bg: rgba(26, 86, 219, 0.12);
   --side-red: #dc2626;
   --side-red-bg: rgba(220, 38, 38, 0.12);
+  --side-blue-border: rgba(26, 86, 219, 0.3);
+  --side-blue-glow:   rgba(26, 86, 219, 0.4);
+  --side-red-border:  rgba(220, 38, 38, 0.3);
+  --side-red-glow:    rgba(220, 38, 38, 0.4);
+  --gp-primary-bg:    rgba(232, 160, 32, 0.12);
 
   --font-family: 'Montserrat', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -97,7 +102,7 @@ button {
   cursor: pointer;
   border: none;
   outline: none;
-  transition: all var(--transition-fast);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 button:active { transform: scale(0.97); }

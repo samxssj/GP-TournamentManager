@@ -36,13 +36,13 @@ export default function ScoreboardScreen({ match, athletes: propAthletes }) {
 
   return (
     <div style={{ width: '100%', height: '100%', display: 'grid', gridTemplateColumns: '1fr auto 1fr', background: 'var(--surface-bg)' }}>
-      <div style={{ background: 'var(--side-blue-bg)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24, padding: 48, borderRight: '2px solid rgba(26,86,219,0.3)' }}>
+      <div style={{ background: 'var(--side-blue-bg)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24, padding: 48, borderRight: '2px solid var(--side-blue-border)' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 52, fontWeight: 900, lineHeight: 1, marginBottom: 8 }}>{a1?.name?.toUpperCase() || 'TBD'}</div>
           <div style={{ fontSize: 20, color: 'var(--text-secondary)', fontWeight: 500 }}>{a1?.academy || '—'}</div>
         </div>
         <motion.div animate={{ scale: r1.points > r2.points ? [1, 1.05, 1] : 1 }} transition={{ duration: 0.3 }}
-          style={{ fontSize: 160, fontWeight: 900, lineHeight: 1, color: 'var(--side-blue)', textShadow: '0 0 60px rgba(26,86,219,0.4)' }}>
+          style={{ fontSize: 160, fontWeight: 900, lineHeight: 1, color: 'var(--side-blue)', textShadow: '0 0 60px var(--side-blue-glow)' }}>
           <AnimatedNumber value={r1.points} />
         </motion.div>
         <div style={{ display: 'flex', gap: 32, fontSize: 36, fontWeight: 700 }}>
@@ -68,13 +68,13 @@ export default function ScoreboardScreen({ match, athletes: propAthletes }) {
         }}>GRAPPLERS<br />PARADISE</div>
       </div>
 
-      <div style={{ background: 'var(--side-red-bg)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24, padding: 48, borderLeft: '2px solid rgba(220,38,38,0.3)' }}>
+      <div style={{ background: 'var(--side-red-bg)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24, padding: 48, borderLeft: '2px solid var(--side-red-border)' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 52, fontWeight: 900, lineHeight: 1, marginBottom: 8 }}>{a2?.name?.toUpperCase() || 'TBD'}</div>
           <div style={{ fontSize: 20, color: 'var(--text-secondary)', fontWeight: 500 }}>{a2?.academy || '—'}</div>
         </div>
         <motion.div animate={{ scale: r2.points > r1.points ? [1, 1.05, 1] : 1 }} transition={{ duration: 0.3 }}
-          style={{ fontSize: 160, fontWeight: 900, lineHeight: 1, color: 'var(--side-red)', textShadow: '0 0 60px rgba(220,38,38,0.4)' }}>
+          style={{ fontSize: 160, fontWeight: 900, lineHeight: 1, color: 'var(--side-red)', textShadow: '0 0 60px var(--side-red-glow)' }}>
           <AnimatedNumber value={r2.points} />
         </motion.div>
         <div style={{ display: 'flex', gap: 32, fontSize: 36, fontWeight: 700 }}>
