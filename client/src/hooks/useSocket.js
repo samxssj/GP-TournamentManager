@@ -17,6 +17,7 @@ export default function useSocket() {
     handleViewState,
     handleMatchUpdated,
     handleMatchTick,
+    handleMatchTimeout,
     handleTournamentUpdated
   } = useTournamentStore()
 
@@ -29,6 +30,7 @@ export default function useSocket() {
     s.on('view:state', handleViewState)
     s.on('match:updated', handleMatchUpdated)
     s.on('match:tick', handleMatchTick)
+    s.on('match:timeout', handleMatchTimeout)
     s.on('tournament:updated', handleTournamentUpdated)
 
     s.on('connect', () => console.log('[socket] conectado'))
@@ -38,6 +40,7 @@ export default function useSocket() {
       s.off('view:state', handleViewState)
       s.off('match:updated', handleMatchUpdated)
       s.off('match:tick', handleMatchTick)
+      s.off('match:timeout', handleMatchTimeout)
       s.off('tournament:updated', handleTournamentUpdated)
     }
   }, [])

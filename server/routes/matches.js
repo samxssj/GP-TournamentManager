@@ -26,6 +26,15 @@ router.post('/:matchId/start', async (req, res) => {
 
   if (match.status === 'finished') return res.status(409).json({ error: 'El combate ya finalizó' })
 
+  // Guardia de tatami único: solo puede haber un combate activo en todo el torneo
+  const hayActivo = db.tournaments
+    .flatMap(t => t.categories)
+    .flatMap(c => c.matches)
+    .some(m => m.id !== match.id && m.status === 'active')
+  if (hayActivo) {
+    return res.status(409).json({ error: 'Ya hay un combate activo. Finalízalo antes de iniciar uno nuevo.' })
+  }
+
   match.status = 'active'
   match.timerState = 'running'
   match.elapsed = req.body.elapsed || 0

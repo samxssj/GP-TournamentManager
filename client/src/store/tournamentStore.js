@@ -58,6 +58,9 @@ const useTournamentStore = create((set, get) => ({
 
   handleMatchTick: ({ remaining }) => set({ remainingSeconds: remaining }),
 
+  // El tiempo llegó a 0: fija el contador en 0 para que la UI refleje el fin
+  handleMatchTimeout: () => set({ remainingSeconds: 0 }),
+
   handleTournamentUpdated: ({ tournament }) => set(state => ({
     tournaments: state.tournaments.map(t => t.id === tournament.id ? tournament : t)
   }))
