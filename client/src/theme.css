@@ -1,9 +1,22 @@
 /* GP Tournament Manager — Design Tokens */
+/* Colores extraídos del logo oficial de Grapplers Paradise (grapplersparadise.es):
+   - El logo usa un gradiente de dorado/amarillo (#e8a020) a verde (#2d8b3a)
+   - Acento teal para "Jiu Jitsu Club": #2a7a6e
+   - Para pantallas oscuras usamos el dorado como primario (máxima legibilidad)
+   - El rojo anterior (#c8102e) era un placeholder, NO es parte de la identidad GP */
 :root {
-  --gp-primary: #c8102e;
-  --gp-primary-dark: #9a0c23;
-  --gp-primary-light: #e8305a;
+  /* Marca GP — colores reales del logo oficial */
+  --gp-primary: #e8a020;          /* Dorado del gradiente superior del logo */
+  --gp-primary-dark: #b87a10;     /* Dorado oscuro para hover/sombras */
+  --gp-primary-light: #f0bc50;    /* Dorado claro para highlights */
+  --gp-green: #2d8b3a;            /* Verde del gradiente inferior del logo */
+  --gp-green-dark: #1f6328;       /* Verde oscuro */
+  --gp-teal: #2a7a6e;             /* Teal del texto "Jiu Jitsu Club" */
   --gp-accent: #ffffff;
+
+  /* Gradiente de marca — de dorado a verde, como el icono del logo */
+  --gp-gradient: linear-gradient(135deg, #e8a020 0%, #a0c830 50%, #2d8b3a 100%);
+  --gp-gradient-glow: rgba(232, 160, 32, 0.3);
 
   --surface-bg: #0a0a0a;
   --surface-01: #111111;
@@ -20,10 +33,11 @@
   --color-warning: #f59e0b;
   --color-danger: #ef4444;
 
+  /* Colores de combate: azul (lado izquierdo) vs rojo (lado derecho) — estándar IJF/IBJJF */
   --side-blue: #1a56db;
   --side-blue-bg: rgba(26, 86, 219, 0.12);
-  --side-red: #c8102e;
-  --side-red-bg: rgba(200, 16, 46, 0.12);
+  --side-red: #dc2626;
+  --side-red-bg: rgba(220, 38, 38, 0.12);
 
   --font-family: 'Montserrat', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -47,7 +61,7 @@
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
   --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
   --shadow-lg: 0 8px 24px rgba(0,0,0,0.6);
-  --shadow-glow: 0 0 20px rgba(200, 16, 46, 0.3);
+  --shadow-glow: 0 0 20px rgba(232, 160, 32, 0.35);
 
   --transition-fast: 150ms ease-out;
   --transition-base: 250ms ease-out;

@@ -49,7 +49,7 @@ export default function ViewControl() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-3)' }}>
           {VIEW_STATES.map(({ value, label, description }) => (
             <button key={value} onClick={() => changeViewState(value)} style={{
-              background: viewState === value ? 'rgba(200,16,46,0.15)' : 'var(--surface-02)',
+              background: viewState === value ? 'rgba(232,160,32,0.12)' : 'var(--surface-02)',
               border: `1px solid ${viewState === value ? 'var(--gp-primary)' : 'var(--surface-border)'}`,
               borderRadius: 'var(--radius-md)', padding: 'var(--space-4)',
               textAlign: 'left', cursor: 'pointer', color: 'var(--text-primary)'

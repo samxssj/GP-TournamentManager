@@ -74,7 +74,8 @@ export default function PodiumScreen({ category, athletes: propAthletes }) {
           style={{
             position: 'absolute', top: 0,
             width: 8, height: 20,
-            background: ['#ffd700', '#c8102e', '#fff', '#22c55e'][i % 4],
+            /* Confetti colores: dorado GP, verde GP, blanco, teal GP */
+            background: ['#ffd700', '#e8a020', '#ffffff', '#2d8b3a'][i % 4],
             borderRadius: 2
           }}
         />

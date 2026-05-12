@@ -59,16 +59,22 @@ export default function ScoreboardScreen({ match, athletes: propAthletes }) {
           style={{ fontSize: 72, fontWeight: 900, fontFamily: 'var(--font-mono, monospace)', letterSpacing: 4 }}
         >{mm}:{ss}</motion.div>
         <div style={{ width: 2, flex: 1, background: 'var(--surface-border)', margin: '8px 0' }} />
-        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, color: 'var(--gp-primary)', textAlign: 'center' }}>GRAPPLERS<br />PARADISE</div>
+        <div style={{
+          fontSize: 11, fontWeight: 700, letterSpacing: 2, textAlign: 'center',
+          background: 'var(--gp-gradient)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text'
+        }}>GRAPPLERS<br />PARADISE</div>
       </div>
 
-      <div style={{ background: 'var(--side-red-bg)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24, padding: 48, borderLeft: '2px solid rgba(200,16,46,0.3)' }}>
+      <div style={{ background: 'var(--side-red-bg)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24, padding: 48, borderLeft: '2px solid rgba(220,38,38,0.3)' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 52, fontWeight: 900, lineHeight: 1, marginBottom: 8 }}>{a2?.name?.toUpperCase() || 'TBD'}</div>
           <div style={{ fontSize: 20, color: 'var(--text-secondary)', fontWeight: 500 }}>{a2?.academy || '—'}</div>
         </div>
         <motion.div animate={{ scale: r2.points > r1.points ? [1, 1.05, 1] : 1 }} transition={{ duration: 0.3 }}
-          style={{ fontSize: 160, fontWeight: 900, lineHeight: 1, color: 'var(--side-red)', textShadow: '0 0 60px rgba(200,16,46,0.4)' }}>
+          style={{ fontSize: 160, fontWeight: 900, lineHeight: 1, color: 'var(--side-red)', textShadow: '0 0 60px rgba(220,38,38,0.4)' }}>
           <AnimatedNumber value={r2.points} />
         </motion.div>
         <div style={{ display: 'flex', gap: 32, fontSize: 36, fontWeight: 700 }}>
