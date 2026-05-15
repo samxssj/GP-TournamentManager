@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import path from 'path'
 import { readJSON, writeJSON } from '../storage/jsonStorage.js'
-import { generateBracket } from '../services/bracketService.js'
+import { generateBracket, buildBracketFromSeeds } from '../services/bracketService.js'
 import { getIO } from '../socket.js'
 
 const router = Router()
@@ -22,7 +22,18 @@ router.post('/tournaments/:tId/categories/:catId/generate', async (req, res) => 
   if (category.bracketConfirmed) return res.status(409).json({ error: 'El bracket ya está confirmado' })
   if (category.athleteIds.length < 2) return res.status(400).json({ error: 'Se necesitan al menos 2 atletas' })
 
-  category.matches = generateBracket(category.athleteIds)
+  const { order } = req.body || {}
+  if (Array.isArray(order)) {
+    const nonNullIds = order.filter(Boolean)
+    const invalidIds = nonNullIds.filter(id => !category.athleteIds.includes(id))
+    const missingIds = category.athleteIds.filter(id => !nonNullIds.includes(id))
+    if (invalidIds.length > 0) return res.status(400).json({ error: 'IDs de atleta inválidos en order' })
+    if (missingIds.length > 0) return res.status(400).json({ error: `Faltan atletas: ${missingIds.join(', ')}` })
+    category.matches = buildBracketFromSeeds(order)
+  } else {
+    category.matches = generateBracket(category.athleteIds)
+  }
+
   await writeJSON(dbPath(), db)
   res.json(category)
 })

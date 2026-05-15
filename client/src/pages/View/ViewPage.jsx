@@ -18,10 +18,17 @@ export default function ViewPage() {
   useSocket()
   const { viewState, activeCategory, activeMatch } = useTournamentStore()
   const storeAthletes = useTournamentStore(s => s.athletes)
+  const setAthletes = useTournamentStore(s => s.setAthletes)
 
   useEffect(() => {
     document.documentElement.style.overflow = 'hidden'
     return () => { document.documentElement.style.overflow = '' }
+  }, [])
+
+  useEffect(() => {
+    if (!storeAthletes.length) {
+      fetch('/api/athletes').then(r => r.json()).then(setAthletes).catch(() => {})
+    }
   }, [])
 
   const Screen = SCREENS[viewState] || WaitingScreen

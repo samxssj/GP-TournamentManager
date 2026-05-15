@@ -61,9 +61,11 @@ export default function BracketTree({ matches, athletes }) {
           <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.5, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 'var(--space-2)' }}>
             {round === maxRound ? 'Final' : `Ronda ${round}`}
           </div>
-          {rMatches.map(match => (
-            <MatchCard key={match.id} match={match} athletes={athletes} />
-          ))}
+          {rMatches
+            .filter(m => m.athlete1Id || m.athlete2Id || m.status !== 'finished')
+            .map(match => (
+              <MatchCard key={match.id} match={match} athletes={athletes} />
+            ))}
         </div>
       ))}
     </div>

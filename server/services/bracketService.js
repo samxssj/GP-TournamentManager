@@ -50,14 +50,14 @@ export function propagateWinner(matches, finishedMatch) {
   }
 }
 
-export function generateBracket(athleteIds) {
-  const shuffled = [...athleteIds].sort(() => Math.random() - 0.5)
-  const n = shuffled.length
+export function buildBracketFromSeeds(seeds) {
+  const n = seeds.filter(Boolean).length
 
   if (n === 0) return []
   if (n === 1) {
-    const m = createMatch(1, 0, shuffled[0], null)
-    m.winnerId = shuffled[0]
+    const athleteId = seeds.find(Boolean)
+    const m = createMatch(1, 0, athleteId, null)
+    m.winnerId = athleteId
     m.status = 'finished'
     m.result.type = 'wo'
     return [m]
@@ -65,16 +65,14 @@ export function generateBracket(athleteIds) {
 
   const totalRounds = Math.ceil(Math.log2(n))
   const size = Math.pow(2, totalRounds)
-  const seeds = [...shuffled, ...Array(size - n).fill(null)]
+  const padded = [...seeds, ...Array(Math.max(0, size - seeds.length)).fill(null)].slice(0, size)
 
   const matches = []
 
-  // Ronda 1: se llena con los atletas (y nulls para los byes)
   for (let pos = 0; pos < size / 2; pos++) {
-    matches.push(createMatch(1, pos, seeds[pos * 2], seeds[pos * 2 + 1]))
+    matches.push(createMatch(1, pos, padded[pos * 2], padded[pos * 2 + 1]))
   }
 
-  // Rondas siguientes: slots vacíos, se llenan al propagar ganadores
   for (let round = 2; round <= totalRounds; round++) {
     const roundSize = size / Math.pow(2, round)
     for (let pos = 0; pos < roundSize; pos++) {
@@ -82,7 +80,6 @@ export function generateBracket(athleteIds) {
     }
   }
 
-  // Resolver byes y ghost matches de izquierda a derecha en R1
   const r1Matches = matches.filter(m => m.round === 1).sort((a, b) => a.position - b.position)
 
   for (const match of r1Matches) {
@@ -90,12 +87,10 @@ export function generateBracket(athleteIds) {
     const oneNull = (!match.athlete1Id && !!match.athlete2Id) || (!!match.athlete1Id && !match.athlete2Id)
 
     if (bothNull) {
-      // Ghost match — sin ganador, no se propaga nada
       match.status = 'finished'
       match.result.type = 'wo'
       match.finishedAt = new Date().toISOString()
     } else if (oneNull) {
-      // Bye — el atleta real avanza automáticamente
       match.winnerId = match.athlete1Id || match.athlete2Id
       match.status = 'finished'
       match.result.type = 'wo'
@@ -105,6 +100,11 @@ export function generateBracket(athleteIds) {
   }
 
   return matches
+}
+
+export function generateBracket(athleteIds) {
+  const shuffled = [...athleteIds].sort(() => Math.random() - 0.5)
+  return buildBracketFromSeeds(shuffled)
 }
 
 export function calculatePodium(category) {

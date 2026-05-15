@@ -81,6 +81,8 @@ export default function MatchPanel() {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type, winnerId })
     })
     setTimerRunning(false)
+    setSelectedMatchId(null)
+    setSelectedCatId(null)
     refetchTournament()
   }
 
