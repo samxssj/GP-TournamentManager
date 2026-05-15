@@ -2,9 +2,8 @@ services:
   app:
     build: .
     ports:
-      - "3000:3000"
+      - "${PORT:-3000}:3000"
     volumes:
-      # Persiste los datos JSON fuera del contenedor
       - ./data:/app/server/data
     environment:
       - NODE_ENV=production
