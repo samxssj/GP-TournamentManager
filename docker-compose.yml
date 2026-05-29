@@ -1,8 +1,6 @@
 services:
   app:
     build: .
-    ports:
-      - "${PORT:-3000}:3000"
     volumes:
       - ./data:/app/server/data
     environment:
@@ -10,3 +8,14 @@ services:
       - PORT=3000
       - DATA_DIR=/app/server/data
     restart: unless-stopped
+    networks:
+      - homelab
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.tournament.rule=Host(`tournament.localhost`)
+      - traefik.http.services.tournament.loadbalancer.server.port=3000
+      - traefik.docker.network=homelab
+
+networks:
+  homelab:
+    external: true
