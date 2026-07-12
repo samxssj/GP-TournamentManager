@@ -1,5 +1,7 @@
 # GP Tournament Manager
 
+[![CI](https://github.com/samxssj/GP-TournamentManager/actions/workflows/ci.yml/badge.svg)](https://github.com/samxssj/GP-TournamentManager/actions/workflows/ci.yml)
+
 Real-time Brazilian Jiu-Jitsu tournament manager: build brackets, run matches and drive a live public scoreboard — all synchronized over WebSockets. A control panel for the organizer and a separate public display for competitors and audience.
 
 ## Overview
