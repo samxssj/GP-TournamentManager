@@ -12,13 +12,3 @@ Thumbs.db
 ruvector.db
 agentdb.rvf
 agentdb.rvf.lock
-
-# Internal AI assistant / agent files (kept out of public repo)
-CLAUDE.md
-AGENTS.md
-MEMORY.md
-INTERNAL.md
-.claude/
-.cursor/
-.mcp.json
-.mcp*
